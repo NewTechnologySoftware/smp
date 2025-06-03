@@ -1,0 +1,2 @@
+# smp
+Ignorujte to.
