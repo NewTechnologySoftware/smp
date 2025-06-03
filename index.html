@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aktivace SMP - CyberSecure NTS</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 20px;
+            color: #333;
+            line-height: 1.8; /* Zvýšená line-height pro lepší čitelnost dlouhého textu */
+        }
+        .container {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 800px;
+            margin: 20px auto;
+        }
+        h1 {
+            color: #0056b3;
+            margin-bottom: 20px;
+        }
+        p {
+            margin-bottom: 15px;
+            text-align: justify; /* Zarovnání textu do bloku */
+        }
+        ul {
+            list-style-type: disc;
+            margin-left: 25px;
+            margin-bottom: 15px;
+        }
+        ul li {
+            margin-bottom: 8px;
+        }
+        .button-group {
+            text-align: center;
+            margin-top: 30px;
+        }
+        button {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+            margin: 0 10px; /* Mezery mezi tlačítky */
+        }
+        button.activate {
+            background-color: #28a745; /* Zelená */
+            color: white;
+        }
+        button.activate:hover {
+            background-color: #218838;
+        }
+        button.decline {
+            background-color: #dc3545; /* Červená */
+            color: white;
+        }
+        button.decline:hover {
+            background-color: #c82333;
+        }
+        .info-box {
+            background-color: #f8d7da; /* Světle červená */
+            color: #721c24; /* Tmavě červený text */
+            padding: 15px;
+            border-radius: 5px;
+            border: 1px solid #f5c6cb;
+            margin-top: 20px;
+            text-align: left;
+            font-weight: bold;
+        }
+        .hidden {
+            display: none;
+        }
+        .result-screen {
+            padding: 40px;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+        .result-screen.success {
+            background-color: #d4edda; /* Světle zelená */
+            color: #155724; /* Tmavě zelený text */
+            border: 1px solid #c3e6cb;
+        }
+        .result-screen.declined {
+            background-color: #f8d7da; /* Světle červená */
+            color: #721c24; /* Tmavě červený text */
+            border: 1px solid #f5c6cb;
+        }
+    </style>
+</head>
+<body>
+    <div class="container" id="main-content">
+        <h1>Chcete aktivovat funkci SMP v aplikaci CyberSecure NTS?</h1>
+        <p>Tato funkce aktivuje štít SmartCapture NTS. Služba skenuje v reálném čase bezpečnost příchozích SMS, multimédií, oznámení, zpráv, hlasových zpráv, videí a hovorů. V případě, kdy služba rozpozná škodlivý kód nebo podezřelé chování, má plné právo ihned bez zeptání předem zablokovat volajícího / odesílatele, dále okamžitě odstraní přijatou zprávu / médium, aby jej uživatel nestihl otevřít. To vše prakticky za 0.3 vteřiny. Upozorňujeme, že tato služba neblokuje spam hovory a zprávy, ale pouze škodlivé hovory a zprávy s malwarem, hrozbou nebo potenciálním virem. Spam blokuje poštovní štít, který je v aplikaci CyberSecure na vašem zařízení ve stavu "Zablokovat pouze brute spam - spam, který odesílatel odesílá cíleně a v krátkém intervalu, neblokujte jednorázové e-maily."</p>
+
+        <p>S aktivací této služby souhlasíte s tím, že aplikace CyberSecure bude moct:</p>
+        <ul>
+            <li>číst veškeré příchozí zprávy SMS, mazat je a blokovat odesílatele</li>
+            <li>ovládat telefonní hovory a blokovat je, v případě nutnosti pořídit kopii hovoru a odeslat do naší antimalwarové laboratoře</li>
+            <li>číst veškerý obsah ve všech chatovacích aplikacích (WhatsApp, Instagram, Facebook, Snapchat, X, Messenger a mnoho dalších), blokovat odesílatele, mazat zprávy, multimédia, stories.</li>
+            <li>E-maily hlídá e-mailový štít.</li>
+        </ul>
+
+        <p>Služba neodesílá žádná data na server, vše probíhá pouze lokálně ve vašem telefonu, takže nemůže dojít k žádnému úniku. Tato služba je bezpečně regulována v rámci GDPR podmínek v EU. Pro Čínu platí speciální podmínky, které naleznete v odkazu na stránce Privacy Policy na NTS Group CZ Rudolfský Software.</p>
+
+        <div class="info-box">
+            Upozorňujeme, že služba může kdykoli na server NTS odeslat odchycená data v těchto případech:
+            <ul>
+                <li>podezření na malware, je potřeba hlubší kontrola</li>
+                <li>za účelem zlepšování CyberSecure NTS může být odeslána na server libovolná škodlivá zpráva</li>
+            </ul>
+        </div>
+
+        <div class="button-group">
+            <button class="activate" id="activate-smp">Aktivovat službu</button>
+            <button class="decline" id="decline-smp">Ne, díky</button>
+        </div>
+    </div>
+
+    <div class="container hidden result-screen success" id="smp-activated">
+        <p>Služba se aktivovala a nyní je spuštěná. Můžete ji kdykoli pozastavit v nastavení profilu CyberSecure.</p>
+    </div>
+
+    <div class="container hidden result-screen declined" id="smp-declined">
+        <p>Služba zůstává neaktivní. Kdykoli ji můžete spustit v nastavení profilu CyberSecure NTS.</p>
+    </div>
+
+    <script>
+        const mainContent = document.getElementById('main-content');
+        const smpActivated = document.getElementById('smp-activated');
+        const smpDeclined = document.getElementById('smp-declined');
+
+        document.getElementById('activate-smp').addEventListener('click', () => {
+            mainContent.classList.add('hidden');
+            smpActivated.classList.remove('hidden');
+        });
+
+        document.getElementById('decline-smp').addEventListener('click', () => {
+            mainContent.classList.add('hidden');
+            smpDeclined.classList.remove('hidden');
+        });
+    </script>
+</body>
+</html>
